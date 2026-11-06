@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 const TIME_ZONES = {
   central: 'America/Chicago',
   egypt: 'Africa/Cairo',
+  thailand: 'Asia/Bangkok',
 };
 
 const formatTimeForZone = (date, timeZone) =>
@@ -39,10 +40,12 @@ function App() {
     return () => window.clearInterval(intervalId);
   }, [activeTimeZone]);
 
-  const modalTitle =
-    activeTimeZone === TIME_ZONES.egypt ? 'Hora actual en Egipto' : 'Hora actual en Central Time';
-  const modalZoneLabel =
-    activeTimeZone === TIME_ZONES.egypt ? 'Zona horaria: Africa/Cairo' : 'Zona horaria: America/Chicago';
+  const modalTitle = activeTimeZone === TIME_ZONES.egypt
+    ? 'Hora actual en Egipto'
+    : activeTimeZone === TIME_ZONES.thailand
+      ? 'Hora actual en Tailandia'
+      : 'Hora actual en Central Time';
+  const modalZoneLabel = `Zona horaria: ${activeTimeZone}`;
 
   return (
     <main className="welcome-screen">
@@ -67,6 +70,13 @@ function App() {
             onClick={() => setActiveTimeZone(TIME_ZONES.egypt)}
           >
             Ver hora en Egipto
+          </button>
+          <button
+            type="button"
+            className="secondary-button"
+            onClick={() => setActiveTimeZone(TIME_ZONES.thailand)}
+          >
+            Ver hora en Tailandia
           </button>
         </div>
       </section>
