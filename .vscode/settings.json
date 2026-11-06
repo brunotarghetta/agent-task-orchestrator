@@ -1,5 +1,16 @@
 {
     "chat.tools.terminal.autoApprove": {
-        "py": true
+        "py": true,
+        "/^bash \\./scripts/newtask\\.sh \"Crear un nuevo boton en la pantalla principal y que me muestre un popup con la hora actual en Egipto\\.\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "&": true,
+        "where.exe": true,
+        "npm run build": true,
+        "/^cd \"c:\\\\Users\\\\BTarghetta\\\\source\\\\repos\\\\agent-task-orchestrator\" ; bash \\./scripts/complete-task\\.sh \"feat: add Egypt time popup\" \"Add Egypt time popup to welcome screen\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
     }
 }
