@@ -13,6 +13,7 @@ Implement the assigned task on its existing `feature/taskXXXX` branch within the
 - Add or update tests when appropriate and use the repository's established commands.
 - Do not commit, push, merge, open a PR, deploy, or change unrelated files unless explicitly assigned.
 - Record meaningful implementation decisions and changed assumptions in the task record.
+- For lightweight tasks, use the task README as the record. If scope, risk, ambiguity, or architecture grows, pause and notify the orchestrator to escalate before proceeding; never bypass required approvals or independent review.
 
 ## Handoff
 Report files changed, behavior implemented, checks run with exact outcomes, known gaps, and any follow-up decisions. Do not self-approve the code review or mark the task complete.

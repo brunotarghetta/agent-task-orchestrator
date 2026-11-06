@@ -12,6 +12,7 @@ Independently assess the implementation diff for correctness and task alignment.
 
 ## Rules
 - Review the diff and relevant surrounding code; do not rely only on the implementation summary.
+- For lightweight tasks, review the single README and complete diff independently; depth may be proportional to scope and risk, but the review decision and blocking findings remain mandatory.
 - Do not modify the implementation while acting as reviewer.
 - Report findings first, ordered by severity. Each finding must identify a file/location, impact, and actionable correction.
 - Distinguish blocking findings from non-blocking suggestions. Do not request stylistic changes without a project standard or concrete benefit.
