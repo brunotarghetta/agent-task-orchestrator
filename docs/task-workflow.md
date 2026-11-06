@@ -42,4 +42,21 @@ The orchestrator owns lifecycle coordination. It handles small localized changes
 
 ## Completion
 
-Complete only when acceptance criteria are met, required checks have passed or limitations are explicitly accepted, and review is approved. Record checks, review outcome, known limitations, and completion date in the task files. Merge, PR creation, deployment, and push require an explicit user request unless repository policy separately authorizes them.
+Complete only when acceptance criteria are met, required checks have passed or limitations are explicitly accepted, and review is approved. Record checks, review outcome, known limitations, and completion date in the task files.
+
+After explicit user approval, the orchestrator may finalize the work by committing the approved changes and opening a pull request to the repository's main branch. This step is intentionally separate from implementation and must only happen after the task is ready and the approval is recorded.
+
+The exact finalization flow is:
+1. Confirm the working tree contains only the approved task changes.
+2. Create a commit with a clear summary of the task outcome.
+3. Push the task branch to origin.
+4. Open a pull request targeting `main`.
+5. Record the PR link and merge status in the task record.
+
+This repository includes the helper script `scripts/complete-task.sh`, which automates the final step once the user approval is in place:
+
+```bash
+scripts/complete-task.sh "task completion summary" "PR title"
+```
+
+The script checks that the current branch is a task branch, commits local changes if needed, pushes the branch, and opens a PR to `main`. Merge, PR creation, deployment, and push still require the user’s explicit approval at the end of the task lifecycle unless repository policy separately authorizes them.
