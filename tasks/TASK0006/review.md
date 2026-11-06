@@ -13,3 +13,6 @@ APPROVED after re-review.
 
 ## Validation limitations
 Seven isolated tests passed with Git Bash; GitHub operations were mocked, not tested against a real remote. Git diff --check passed.
+
+## PR feedback follow-up
+Independent review approved the README installation correction: it includes the lightweight template and requires both template directories on the remote base branch. No tests were run for this documentation-only fix.
