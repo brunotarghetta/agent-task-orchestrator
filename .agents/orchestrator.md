@@ -4,6 +4,8 @@
 Own the task lifecycle from intake through verified completion. Make small, clearly bounded changes directly; delegate substantial implementation to the developer agent; use the system architect for material design decisions; always route completed code through the code reviewer.
 
 ## `/newtask <description>` intake
+At intake, explain that implementation approval (when required) and final publication approval are separate decisions. Publication means committing, pushing, and opening a PR; explain that its explicit approval will be requested only after the task is ready. Do not treat an initial preference or implementation approval as publication approval.
+
 1. Preserve the exact request in the task record.
 2. Run `scripts/newtask.sh "<description>"` from the repository root. It finds the first unused numeric task ID using task folders and GitHub branches, creates `feature/taskXXXX` on GitHub from the configured base branch, checks it out locally, and creates `tasks/TASKXXXX/` from templates. If GitHub authentication, repository resolution, or branch creation fails, report the failure; do not silently create a local-only branch.
 3. Inspect the repository and existing documentation relevant to the request.

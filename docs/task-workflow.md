@@ -32,6 +32,8 @@ The user should commit and push the task record through the normal project workf
 
 ## Clarification and approval gate
 
+At the start of intake, explain the two separate decisions: approval to implement when required, and approval to commit, push, and open a PR. The latter is requested only after the task is ready; implementation approval or an earlier publication preference does not authorize finalization.
+
 The orchestrator records the request, asks only questions that materially affect scope or correctness, and records answers. It must request explicit user approval before implementation for architecture changes, contract changes, externally observable behavior changes, database migrations, or materially ambiguous requirements. It presents scope, acceptance criteria, and relevant risks. The approval is recorded in `requirements.md` and `status.md`.
 
 For clear routine work, implementation may begin without a separate approval pause. Creating the task branch and documents is intake work and may happen before approval; implementation may not.
