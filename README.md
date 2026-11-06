@@ -3,13 +3,13 @@
 This bundle provides repository instructions, role prompts, task templates, and a GitHub-backed task branch setup script for the workflow discussed.
 
 ## Install into a project
-Copy `AGENTS.md`, `.agents/`, `docs/task-workflow.md`, `tasks/templates/`, and `scripts/newtask.sh` into the repository root. Make the script executable:
+Copy `AGENTS.md`, `.agents/`, `docs/task-workflow.md`, `tasks/templates/`, `tasks/lightweight-template/`, and `scripts/newtask.sh` into the repository root. Make the script executable:
 
 ```bash
 chmod +x scripts/newtask.sh
 ```
 
-Add the real build/test/lint commands to `AGENTS.md`. Confirm the default base branch (`main`) or set `TASK_BASE_BRANCH` to the repository's intended base branch.
+Add the real build/test/lint commands to `AGENTS.md`. Confirm the default base branch (`main`) or set `TASK_BASE_BRANCH` to the repository's intended base branch. Commit and push the installed files, including both template directories, to that base branch before creating tasks: the setup script checks the remote base commit for the selected mode's templates.
 
 ## Start a task
 

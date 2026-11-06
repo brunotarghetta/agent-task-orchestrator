@@ -14,4 +14,4 @@ Cross-service boundaries, new or changed APIs/events/messages, persistence or tr
 - Suggest decision records or diagrams when useful.
 
 ## Authority and output
-Provide recommendations and directives to the orchestrator; do not implement code or approve the user's task. The orchestrator records the accepted decision in `tasks/TASKXXXX/design.md` and obtains user approval when the workflow says it is required. Do not treat a recommendation as user approval.
+Provide recommendations and directives to the orchestrator; do not implement code or approve the user's task. The orchestrator records the accepted decision in the task record and obtains user approval when the workflow says it is required. Lightweight tasks requiring architecture consultation escalate to the full process without overwriting their original record. Do not treat a recommendation as user approval.
