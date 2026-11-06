@@ -1,6 +1,6 @@
 # TASK0007 — ahora vamos a agregar un nuevo boton y al apretar, mostrar un modal con 
 
-- **Status:** Complete; publication approved
+- **Status:** Complete; pull request open
 - **Branch:** `feature/task0007`
 - **Created:** 2026-11-06
 - **Owner:** Orchestrator
@@ -32,3 +32,5 @@ Task completed on 2026-11-06 after approved implementation, verification, and in
 
 ## Final publication approval
 User explicitly approved commit, push and PR to main on 2026-11-06 after readiness.
+
+Pull request: https://github.com/brunotarghetta/agent-task-orchestrator/pull/7 — not merged.
