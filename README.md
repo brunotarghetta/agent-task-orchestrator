@@ -27,6 +27,14 @@ The script creates the branch remotely via GitHub's Git References API through `
 
 The orchestrator reads `.agents/orchestrator.md`, completes task context and clarification, requests approval for the agreed high-impact triggers, implements or delegates, and requires independent review. See `docs/task-workflow.md` for the lifecycle and `AGENTS.md` for shared project rules.
 
+When a task has received explicit user approval and all checks have passed, the finalization step is:
+
+```bash
+bash ./scripts/complete-task.sh "Approved task completion" "PR title"
+```
+
+This commits the approved work, pushes the task branch, and creates a pull request against `main`.
+
 ## Safety and concurrency note
 
 The script checks both the current checkout's task folders and GitHub branch names. If two people create tasks concurrently, both can choose the same next ID; GitHub rejects the second branch creation, and the script stops without overwriting files. Rerun after the first task is visible to obtain the next available ID.

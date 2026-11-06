@@ -14,4 +14,8 @@ These are the shared rules for every coding agent working in this repository. Re
 For a request in the form `/newtask <description>`, follow `.agents/orchestrator.md` and `docs/task-workflow.md`. The task setup script creates a remote GitHub branch and a local task workspace; it does not authorize implementation.
 
 ## Project-specific commands
-Add the actual build, test, lint, and formatting commands here. Until configured, agents must inspect project documentation and existing CI configuration rather than inventing commands.
+- Build app: `cd src && npm run build`
+- Start app locally: `cd src && npm run dev -- --host 0.0.0.0`
+- Finalize approved task: `bash ./scripts/complete-task.sh "task completion summary" "PR title"`
+
+This repository uses a task-branch workflow. Only after an explicit user approval should the task be finalized with a commit and a pull request to the `main` branch.
