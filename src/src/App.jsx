@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
 
-const formatCentralTime = (date) =>
+const TIME_ZONES = {
+  central: 'America/Chicago',
+  egypt: 'Africa/Cairo',
+};
+
+const formatTimeForZone = (date, timeZone) =>
   new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/Chicago',
+    timeZone,
     weekday: 'long',
     year: 'numeric',
     month: 'long',
@@ -14,22 +19,30 @@ const formatCentralTime = (date) =>
   }).format(date);
 
 function App() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentCentralTime, setCurrentCentralTime] = useState(() =>
-    formatCentralTime(new Date()),
+  const [activeTimeZone, setActiveTimeZone] = useState(null);
+  const [currentTime, setCurrentTime] = useState(() =>
+    formatTimeForZone(new Date(), TIME_ZONES.central),
   );
 
   useEffect(() => {
-    if (!isModalOpen) {
+    if (!activeTimeZone) {
       return undefined;
     }
 
-    const intervalId = window.setInterval(() => {
-      setCurrentCentralTime(formatCentralTime(new Date()));
-    }, 1000);
+    const updateCurrentTime = () => {
+      setCurrentTime(formatTimeForZone(new Date(), activeTimeZone));
+    };
+
+    updateCurrentTime();
+    const intervalId = window.setInterval(updateCurrentTime, 1000);
 
     return () => window.clearInterval(intervalId);
-  }, [isModalOpen]);
+  }, [activeTimeZone]);
+
+  const modalTitle =
+    activeTimeZone === TIME_ZONES.egypt ? 'Hora actual en Egipto' : 'Hora actual en Central Time';
+  const modalZoneLabel =
+    activeTimeZone === TIME_ZONES.egypt ? 'Zona horaria: Africa/Cairo' : 'Zona horaria: America/Chicago';
 
   return (
     <main className="welcome-screen">
@@ -39,22 +52,36 @@ function App() {
         <p className="subtitle">
           Esta es una pantalla de bienvenida simple para empezar a construir tu app.
         </p>
-        <button type="button" className="primary-button" onClick={() => setIsModalOpen(true)}>
-          Ver hora actual
-        </button>
+
+        <div className="action-buttons">
+          <button
+            type="button"
+            className="primary-button"
+            onClick={() => setActiveTimeZone(TIME_ZONES.central)}
+          >
+            Ver hora actual
+          </button>
+          <button
+            type="button"
+            className="secondary-button"
+            onClick={() => setActiveTimeZone(TIME_ZONES.egypt)}
+          >
+            Ver hora en Egipto
+          </button>
+        </div>
       </section>
 
-      {isModalOpen && (
-        <div className="modal-backdrop" onClick={() => setIsModalOpen(false)}>
+      {activeTimeZone && (
+        <div className="modal-backdrop" onClick={() => setActiveTimeZone(null)}>
           <div className="modal" onClick={(event) => event.stopPropagation()}>
             <div className="modal-header">
-              <h2>Hora actual en Central Time</h2>
-              <button type="button" className="close-button" onClick={() => setIsModalOpen(false)}>
+              <h2>{modalTitle}</h2>
+              <button type="button" className="close-button" onClick={() => setActiveTimeZone(null)}>
                 ×
               </button>
             </div>
-            <p className="modal-time">{currentCentralTime}</p>
-            <p className="modal-note">Zona horaria: America/Chicago</p>
+            <p className="modal-time">{currentTime}</p>
+            <p className="modal-note">{modalZoneLabel}</p>
           </div>
         </div>
       )}

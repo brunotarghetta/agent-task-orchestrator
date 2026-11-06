@@ -5,16 +5,49 @@ usage() { echo 'Usage: scripts/newtask.sh "task description"' >&2; exit 2; }
 [[ $# -ge 1 ]] || usage
 
 detect_python() {
-  if command -v python3 >/dev/null 2>&1; then
-    echo "python3"
-  elif command -v python >/dev/null 2>&1; then
-    echo "python"
-  elif command -v py >/dev/null 2>&1; then
-    echo "py"
-  else
-    echo 'Python is required but was not found in PATH.' >&2
-    exit 1
+  local candidates=()
+
+  while IFS= read -r line; do
+    [[ -n "$line" ]] || continue
+    case "$line" in
+      *WindowsApps*) continue ;;
+      *) candidates+=("$line") ;;
+    esac
+  done < <(where.exe python 2>/dev/null || true)
+
+  if ((${#candidates[@]} > 0)); then
+    echo "${candidates[0]}"
+    return 0
   fi
+
+  while IFS= read -r line; do
+    [[ -n "$line" ]] || continue
+    case "$line" in
+      *WindowsApps*) continue ;;
+      *) candidates+=("$line") ;;
+    esac
+  done < <(where.exe python3 2>/dev/null || true)
+
+  if ((${#candidates[@]} > 0)); then
+    echo "${candidates[0]}"
+    return 0
+  fi
+
+  while IFS= read -r line; do
+    [[ -n "$line" ]] || continue
+    case "$line" in
+      *WindowsApps*) continue ;;
+      *) candidates+=("$line") ;;
+    esac
+  done < <(where.exe py 2>/dev/null || true)
+
+  if ((${#candidates[@]} > 0)); then
+    echo "${candidates[0]}"
+    return 0
+  fi
+
+  echo 'Python is required but a valid installation was not found.' >&2
+  exit 1
 }
 
 PYTHON_BIN="$(detect_python)"
