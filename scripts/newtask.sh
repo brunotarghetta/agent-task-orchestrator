@@ -3,6 +3,21 @@ set -euo pipefail
 
 usage() { echo 'Usage: scripts/newtask.sh "task description"' >&2; exit 2; }
 [[ $# -ge 1 ]] || usage
+
+detect_python() {
+  if command -v python3 >/dev/null 2>&1; then
+    echo "python3"
+  elif command -v python >/dev/null 2>&1; then
+    echo "python"
+  elif command -v py >/dev/null 2>&1; then
+    echo "py"
+  else
+    echo 'Python is required but was not found in PATH.' >&2
+    exit 1
+  fi
+}
+
+PYTHON_BIN="$(detect_python)"
 description="$*"
 repo_root="$(git rev-parse --show-toplevel 2>/dev/null)" || { echo 'Run inside a Git repository.' >&2; exit 1; }
 cd "$repo_root"
@@ -48,7 +63,7 @@ for template in tasks/templates/*.md; do
   target="$task_dir/${template##*/}"
   TASK_ID="$task_id" BRANCH_SUFFIX="$suffix" TASK_DATE="$today" \
     SHORT_TITLE="$short_title" TASK_DESCRIPTION="$description" \
-    python3 - "$template" "$target" <<'PYTEMPLATE'
+    "$PYTHON_BIN" - "$template" "$target" <<'PYTEMPLATE'
 from pathlib import Path
 import os, sys
 source, target = map(Path, sys.argv[1:])
