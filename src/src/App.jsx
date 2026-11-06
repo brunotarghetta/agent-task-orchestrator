@@ -4,6 +4,7 @@ const TIME_ZONES = {
   central: 'America/Chicago',
   egypt: 'Africa/Cairo',
   thailand: 'Asia/Bangkok',
+  switzerland: 'Europe/Zurich',
 };
 
 const formatTimeForZone = (date, timeZone) =>
@@ -44,7 +45,9 @@ function App() {
     ? 'Hora actual en Egipto'
     : activeTimeZone === TIME_ZONES.thailand
       ? 'Hora actual en Tailandia'
-      : 'Hora actual en Central Time';
+      : activeTimeZone === TIME_ZONES.switzerland
+        ? 'Hora actual en Suiza'
+        : 'Hora actual en Central Time';
   const modalZoneLabel = `Zona horaria: ${activeTimeZone}`;
 
   return (
@@ -77,6 +80,13 @@ function App() {
             onClick={() => setActiveTimeZone(TIME_ZONES.thailand)}
           >
             Ver hora en Tailandia
+          </button>
+          <button
+            type="button"
+            className="secondary-button"
+            onClick={() => setActiveTimeZone(TIME_ZONES.switzerland)}
+          >
+            Ver hora en Suiza
           </button>
         </div>
       </section>
